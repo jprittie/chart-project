@@ -1,6 +1,15 @@
 version: '2'
 
 services:
+  db:
+    image: postgres:9.6
+    environment:
+      POSTGRES_DB: process.env.PGDATABASE
+      POSTGRES_USER: process.env.PGUSER
+      POSTGRES_PASSWORD: process.env.PGPASSWORD
+    ports:
+      - '5432:5432'
+
   app:
     build: .
     ports:
@@ -11,5 +20,6 @@ services:
       - /usr/src/app/node_modules
     env_file: .env
     environment:
-      - NODE_ENV=development
+      DATABASE_URL: process.env.PGHOST
+      NODE_ENV: development
     command: npm run dev
