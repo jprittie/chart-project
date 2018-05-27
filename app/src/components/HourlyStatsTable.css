@@ -1,0 +1,6 @@
+.HourlyStatsTable-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  font-size: 10px;
+}
