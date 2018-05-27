@@ -17,6 +17,9 @@ const Header = () => (
       <Link to={`/dailyStats`}>
         <button>Daily Stats</button>
       </Link>
+      <Link to={`/heatMap`}>
+        <button>Heat Map</button>
+      </Link>
     </div>
   </header>
 );

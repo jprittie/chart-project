@@ -22,6 +22,7 @@ class HourlyStatsChart extends React.Component {
       <div className='hourlyStatsChart'>
         <VictoryChart
           theme={VictoryTheme.material}
+          style={{ parent: { maxWidth: '50%', maxHeight: 300 } }}
         >
           <VictoryLabel text='Revenue By Hour' x={225} y={30} textAnchor='middle' />
           <VictoryAxis />

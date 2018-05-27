@@ -6,6 +6,7 @@ import HourlyEvents from './HourlyEvents';
 import DailyEvents from './DailyEvents';
 import DailyStats from './DailyStats';
 import HourlyStats from './HourlyStats';
+import HeatMap from './HeatMap';
 
 const ChartContainer = () => (
   <div>
@@ -14,6 +15,7 @@ const ChartContainer = () => (
       <Route path='/dailyEvents' component={DailyEvents} />
       <Route path='/hourlyStats' component={HourlyStats} />
       <Route path='/dailyStats' component={DailyStats} />
+      <Route path='/heatMap' component={HeatMap} />
     </Switch>
   </div>
 );
