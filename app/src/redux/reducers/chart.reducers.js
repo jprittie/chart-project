@@ -8,10 +8,11 @@ export const getHourlyStatsApiRequestReducer = (state = {}, action) => {
   return state;
 };
 
+// put chart results through this reducer too?
 export const hourlyStatsResultsReducer = (state = [], action) => {
   switch (action.type) {
     case STATS_ACTIONS.HOURLY_STATS_RECEIVED_SUCCESS:
-      return { ...state, results: action.payload, isError: false };
+      return { ...state, tableResults: action.payload, isError: false };
     case STATS_ACTIONS.HOURLY_STATS_RECEIVED_ERROR:
       return { ...state, results: [], isError: true };
     default:

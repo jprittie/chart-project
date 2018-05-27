@@ -8,7 +8,7 @@ export const STATS_ACTIONS = {
   SET_LOADING_STATE: 'SET_LOADING_STATE'
 };
 
-export const hourlyStatsApiRequest = parameters => ({
+export const hourlyStatsTableApiRequest = parameters => ({
   type: STATS_ACTIONS.GET_HOURLY_STATS,
   payload: parameters
 });

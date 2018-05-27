@@ -5,20 +5,22 @@ import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import './HourlyStatsTable.css';
 
-import { getHourlyStats } from '../redux/selectors';
-import { hourlyStatsApiRequest } from '../redux/actions/chart.actions.js';
+import { getHourlyTableStats } from '../redux/selectors';
+import { hourlyStatsTableApiRequest } from '../redux/actions/chart.actions.js';
 
 // TODO change timestamp to date to be user-friendly, change revenue to two decimal places
 // do this in the selector
 // make API call to get page count
+// I'm going to have to make two different API calls; will need to set separate chart and table data on state
+// Also I probably want a lot more data for the chart than I do for a table page
 
 class HourlyStatsTable extends React.Component {
   componentDidMount () {
-    this.props.hourlyStatsApiRequest({page: 1, page_size: 20});
+    this.props.hourlyStatsTableApiRequest({page: 1, page_size: 20});
   }
 
   render () {
-    const { hourlyStats } = this.props;
+    const { hourlyTableStats } = this.props;
     const columns = [{
       Header: 'Date',
       accessor: 'date'
@@ -38,15 +40,15 @@ class HourlyStatsTable extends React.Component {
 
     return (
       <div className='HourlyStatsTable-container'>
-        { hourlyStats &&
+        { hourlyTableStats &&
           <ReactTable
             className='-striped -highlight'
-            data={hourlyStats}
+            data={hourlyTableStats}
             columns={columns}
             showPageSizeOptions={false}
             pages={42}
             manual
-            onPageChange={pageIndex => this.props.hourlyStatsApiRequest({page: pageIndex + 1, page_size: 20})}
+            onPageChange={pageIndex => this.props.hourlyStatsTableApiRequest({page: pageIndex + 1, page_size: 20})}
           />
         }
       </div>
@@ -57,11 +59,11 @@ class HourlyStatsTable extends React.Component {
 /* Container */
 
 const mapStateToProps = (state) => ({
-  hourlyStats: getHourlyStats(state)
+  hourlyTableStats: getHourlyTableStats(state)
 });
 
 const actions = {
-  hourlyStatsApiRequest
+  hourlyStatsTableApiRequest
 };
 
 export default connect(mapStateToProps, actions)(HourlyStatsTable);

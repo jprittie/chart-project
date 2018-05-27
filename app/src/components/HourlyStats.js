@@ -1,9 +1,10 @@
 import React from 'react';
 import HourlyStatsTable from './HourlyStatsTable';
+import HourlyStatsChart from './HourlyStatsChart';
 
 const HourlyStats = () => (
   <div>
-    The hourly stats charts will go here.
+    <HourlyStatsChart />
     <HourlyStatsTable />
   </div>
 );
