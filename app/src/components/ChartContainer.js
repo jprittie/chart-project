@@ -1,12 +1,20 @@
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 
 import './ChartContainer.css';
-import HourlyStatsTable from './HourlyStatsTable';
+import HourlyEvents from './HourlyEvents';
+import DailyEvents from './DailyEvents';
+import DailyStats from './DailyStats';
+import HourlyStats from './HourlyStats';
 
 const ChartContainer = () => (
   <div>
-    This is a placeholder for the chart.
-    <HourlyStatsTable />
+    <Switch>
+      <Route path='/hourlyEvents' component={HourlyEvents} />
+      <Route path='/dailyEvents' component={DailyEvents} />
+      <Route path='/hourlyStats' component={HourlyStats} />
+      <Route path='/dailyStats' component={DailyStats} />
+    </Switch>
   </div>
 );
 
