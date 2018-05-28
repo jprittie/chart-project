@@ -1,34 +1,38 @@
-import React, { Component } from 'react';
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+/* global google */
+import React from 'react';
 
-import './HeatMap.css';
+import { withScriptjs, withGoogleMap, GoogleMap } from 'react-google-maps';
+// import HeatmapLayer from 'react-google-maps/lib/visualization/HeatmapLayer';
+import HeatmapLayer from 'react-google-maps/lib/components/visualization/HeatmapLayer';
 
-export default class HeatMap extends Component {
-  constructor (props) {
-    super(props);
-    this.state = {
-      lat: 51.505,
-      lng: -0.09,
-      zoom: 13
-    };
-  }
+const MyMapComponent = withScriptjs(withGoogleMap((props) =>
+  <GoogleMap
+    defaultZoom={8}
+    defaultCenter={{ lat: 37.782, lng: -122.44 }}
+  >
+    <HeatmapLayer
+      data={[
+        // {location: new google.maps.LatLng(37.782, -122.447), weight: 0.5},
+        new google.maps.LatLng(37.782551, -122.445368),
+        new google.maps.LatLng(37.782745, -122.444586),
+        new google.maps.LatLng(37.782842, -122.443688),
+        new google.maps.LatLng(37.782919, -122.442815),
+        new google.maps.LatLng(37.782992, -122.442112),
+        new google.maps.LatLng(37.783100, -122.441461)
+      ]}
+    />
 
-  render () {
-    const position = [this.state.lat, this.state.lng];
-    return (
-      <div className='leaflet-container'>
-        <Map center={position} zoom={this.state.zoom}>
-          <TileLayer
-            attribution='&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors'
-            url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-          />
-          <Marker position={position}>
-            <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
-            </Popup>
-          </Marker>
-        </Map>
-      </div>
-    );
-  }
-}
+  </GoogleMap>
+));
+
+const HeatMap = () => (
+  <MyMapComponent
+    googleMapURL='https://maps.googleapis.com/maps/api/js?key=AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg&v=3.exp&libraries=geometry,drawing,places,visualization'
+    loadingElement={<div style={{ height: `100%` }} />}
+    containerElement={<div style={{ height: `400px` }} />}
+    mapElement={<div style={{ height: `100%` }} />}
+  />
+);
+
+export default HeatMap;
+
