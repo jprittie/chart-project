@@ -4,20 +4,22 @@ import { connect } from 'react-redux';
 import { VictoryLine, VictoryChart, VictoryLabel, VictoryTheme, VictoryVoronoiContainer, VictoryTooltip, VictoryGroup, VictoryBar } from 'victory';
 import './HourlyStatsChart.css';
 
-import { getHourlyStatsChart } from '../redux/selectors';
+import { getStatsChart } from '../redux/selectors';
 import { statsApiRequest } from '../redux/actions/stats.actions.js';
 
 // SHOW DATE OF CHART?
 // style={{ parent: { maxWidth: '40%', maxHeight: 300 } }}
 // must set query params on state, i.e. page size and count; except page count is not determined
 // by the user; page number is, though
+// but that is just for the table
+// this.props.statsApiRequest({statsType: 'hourlyStatsChart', endpoint: 'stats/hourly', queryParams: `/1/20`});
 // take out media queries
 // make sure charts don't render before data is calculated
 // is clickthrough rate calculated correctly?
 
 class HourlyStatsChart extends React.Component {
   componentDidMount () {
-    this.props.statsApiRequest({statsType: 'hourlyStatsChart', endpoint: 'stats/hourly', queryParams: `/1/20`});
+    this.props.statsApiRequest({statsType: 'hourlyStatsChart', endpoint: 'stats/hourly'});
   }
   render () {
     return (
@@ -114,7 +116,7 @@ class HourlyStatsChart extends React.Component {
 /* Container */
 
 const mapStateToProps = (state) => ({
-  hourlyStatsChart: getHourlyStatsChart(state)
+  hourlyStatsChart: getStatsChart(state, 'hourlyStatsChart')
 });
 
 const actions = {

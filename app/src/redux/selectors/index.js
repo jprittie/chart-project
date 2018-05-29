@@ -12,8 +12,8 @@ export const getHourlyStatsTable = (state) => {
 // The clickthrough rate (CTR) is the percentage of impressions that led to a click.
 // CTR = Clicks / Impressions
 
-export const getHourlyStatsChart = (state) => {
-  const hourlyStats = state.stats.hourlyStatsChart;
+export const getStatsChart = (state, typeOfStatsChart) => {
+  const hourlyStats = state.stats[typeOfStatsChart];
   if (hourlyStats) {
     var revenuePerImpressionsStats = hourlyStats.map(dataRow => {
       return Object.assign({}, {x: dataRow.hour, y: (parseInt(dataRow.revenue) / (dataRow.impressions) * 1000)});

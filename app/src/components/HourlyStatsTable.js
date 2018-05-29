@@ -16,7 +16,7 @@ import { statsApiRequest } from '../redux/actions/stats.actions.js';
 
 class HourlyStatsTable extends React.Component {
   componentDidMount () {
-    this.props.statsApiRequest({statsType: 'hourlyStatsTable', endpoint: 'stats/hourly', queryParams: `/1/20`});
+    this.props.statsApiRequest({statsType: 'hourlyStatsTable', endpoint: 'stats/hourly', queryParams: `/1/24`});
   }
 
   render () {
@@ -46,9 +46,17 @@ class HourlyStatsTable extends React.Component {
             data={hourlyTableStats}
             columns={columns}
             showPageSizeOptions={false}
-            pages={42}
+            pages={50}
             manual
-            onPageChange={pageIndex => this.props.statsApiRequest({page: pageIndex + 1, page_size: 20})}
+            onPageChange={pageIndex => {
+              this.props.statsApiRequest(
+                {
+                  statsType: 'hourlyStatsTable',
+                  endpoint: 'stats/hourly',
+                  queryParams: `/${pageIndex + 1}/24`
+                }
+              );
+            }}
           />
         }
       </div>
