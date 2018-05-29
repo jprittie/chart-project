@@ -15,23 +15,27 @@ export const getHourlyStatsTable = (state) => {
 export const getHourlyStatsChart = (state) => {
   const hourlyStats = state.stats.hourlyStatsChart;
   if (hourlyStats) {
-    var transformedRevenueStats = hourlyStats.map(dataRow => {
+    var revenuePerImpressionsStats = hourlyStats.map(dataRow => {
       return Object.assign({}, {x: dataRow.hour, y: (parseInt(dataRow.revenue) / (dataRow.impressions) * 1000)});
-    });
-    var transformedClicksStats = hourlyStats.map(dataRow => {
-      return Object.assign({}, {x: dataRow.hour, y: parseInt(dataRow.clicks)});
-    });
-    var transformedImpressionsStats = hourlyStats.map(dataRow => {
-      return Object.assign({}, {x: dataRow.hour, y: parseInt(dataRow.impressions)});
     });
     var clickThroughStats = hourlyStats.map(dataRow => {
       return Object.assign({}, {x: dataRow.hour, y: parseInt(dataRow.clicks) / parseInt(dataRow.impressions) * 100});
     });
+    var transformedRevenueStats = hourlyStats.map(dataRow => {
+      return Object.assign({}, {x: dataRow.hour, y: parseInt(dataRow.revenue)});
+    });
+    var transformedClicksStats = hourlyStats.map(dataRow => {
+      return Object.assign({}, {x: dataRow.hour, y: dataRow.clicks});
+    });
+    var transformedImpressionsStats = hourlyStats.map(dataRow => {
+      return Object.assign({}, {x: dataRow.hour, y: dataRow.impressions});
+    });
   }
   // but return a whole object
   return {
-    revenuePerThousandImpressionByHour: transformedRevenueStats,
+    revenuePerThousandImpressionByHour: revenuePerImpressionsStats,
     clickThroughRatePerHour: clickThroughStats,
+    revenueByHour: transformedRevenueStats,
     clicksByHour: transformedClicksStats,
     impressionsByHour: transformedImpressionsStats
   };

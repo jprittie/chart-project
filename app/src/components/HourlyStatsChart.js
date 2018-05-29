@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { VictoryLine, VictoryChart, VictoryLabel, VictoryAxis, VictoryTheme, VictoryVoronoiContainer, VictoryTooltip } from 'victory';
+import { VictoryLine, VictoryChart, VictoryLabel, VictoryTheme, VictoryVoronoiContainer, VictoryTooltip, VictoryGroup, VictoryBar } from 'victory';
 import './HourlyStatsChart.css';
 
 import { getHourlyStatsChart } from '../redux/selectors';
@@ -73,6 +73,37 @@ class HourlyStatsChart extends React.Component {
             }}
             data={this.props.hourlyStatsChart.clickThroughRatePerHour}
           />
+        </VictoryChart>
+        <VictoryChart height={200} width={800}
+          theme={VictoryTheme.material}
+          domainPadding={{ y: 10 }}
+          containerComponent={
+            <VictoryVoronoiContainer
+              voronoiDimension='x'
+              labels={(d) => `${d.y}`}
+              labelComponent={
+                <VictoryTooltip
+                  cornerRadius={0}
+                  flyoutStyle={{ fill: 'white' }}
+                />}
+            />}
+        >
+          <VictoryLabel text='Clicks and Revenue By Hour' x={225} y={30} textAnchor='middle' />
+          <VictoryGroup offset={5}
+            colorScale={'qualitative'}
+          >
+            <VictoryBar
+              data={this.props.hourlyStatsChart.revenueByHour}
+            />
+            <VictoryBar
+              data={this.props.hourlyStatsChart.clicksByHour}
+            />
+            {/*
+            <VictoryBar
+              data={this.props.hourlyStatsChart.impressionsByHour}
+            />
+            */}
+          </VictoryGroup>
         </VictoryChart>
       </div>
     );
