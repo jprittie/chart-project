@@ -1,8 +1,13 @@
 /* TODO this is not how to set width and height for Victory */
 
-.hourlyStatsChartRow {
+.hourlyStatsChart {
   width: 100%;
+  padding-top: 20px;
   /* display: flex; */
+}
+
+.hourlyStatsChart h3 {
+  text-align: center;
 }
 
 /* .hourlyStatsChart .VictoryContainer { */

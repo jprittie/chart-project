@@ -21,7 +21,8 @@ class HourlyStatsChart extends React.Component {
   }
   render () {
     return (
-      <div className='hourlyStatsChartRow'>
+      <div className='hourlyStatsChart'>
+        <h3> Hourly Stats for A Chosen Day</h3>
         <VictoryChart height={200} width={800}
           theme={VictoryTheme.material}
           domainPadding={{ y: 10 }}

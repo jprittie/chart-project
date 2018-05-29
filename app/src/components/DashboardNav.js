@@ -13,8 +13,11 @@ const DashboardNav = () => (
       <Link to={`/dailyEvents`}>
         Daily Events
       </Link>
-      <Link to={`/hourlyStats`}>
-        Hourly Stats
+      <Link to={`/hourlyStatsCharts`}>
+        Hourly Stats Charts
+      </Link>
+      <Link to={`/HourlyStatsTable`}>
+        Hourly Stats Table
       </Link>
       <Link to={`/dailyStats`}>
         Daily Stats
