@@ -1,8 +1,7 @@
 import { combineEpics } from 'redux-observable';
 
-import { getHourlyStatsEpic } from './hourly-stats.epics';
+import { getStatsEpic } from './stats.epics';
 
 export default combineEpics(
-  getHourlyStatsEpic
+  getStatsEpic
 );
-

@@ -5,8 +5,8 @@ import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import './HourlyStatsTable.css';
 
-import { getHourlyTableStats } from '../redux/selectors';
-import { hourlyStatsTableApiRequest } from '../redux/actions/chart.actions.js';
+import { getHourlyStatsTable } from '../redux/selectors';
+import { statsApiRequest } from '../redux/actions/stats.actions.js';
 
 // TODO change timestamp to date to be user-friendly, change revenue to two decimal places
 // do this in the selector
@@ -16,7 +16,7 @@ import { hourlyStatsTableApiRequest } from '../redux/actions/chart.actions.js';
 
 class HourlyStatsTable extends React.Component {
   componentDidMount () {
-    this.props.hourlyStatsTableApiRequest({page: 1, page_size: 20});
+    this.props.statsApiRequest({statsType: 'hourlyStatsTable', endpoint: 'stats/hourly', queryParams: `/1/20`});
   }
 
   render () {
@@ -48,7 +48,7 @@ class HourlyStatsTable extends React.Component {
             showPageSizeOptions={false}
             pages={42}
             manual
-            onPageChange={pageIndex => this.props.hourlyStatsTableApiRequest({page: pageIndex + 1, page_size: 20})}
+            onPageChange={pageIndex => this.props.statsApiRequest({page: pageIndex + 1, page_size: 20})}
           />
         }
       </div>
@@ -59,12 +59,11 @@ class HourlyStatsTable extends React.Component {
 /* Container */
 
 const mapStateToProps = (state) => ({
-  hourlyTableStats: getHourlyTableStats(state)
+  hourlyTableStats: getHourlyStatsTable(state)
 });
 
 const actions = {
-  hourlyStatsTableApiRequest
+  statsApiRequest
 };
 
 export default connect(mapStateToProps, actions)(HourlyStatsTable);
-

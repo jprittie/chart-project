@@ -1,10 +1,9 @@
 import { combineReducers } from 'redux';
 
-import { hourlyStatsResultsReducer, getHourlyStatsApiRequestReducer, loadingStateReducer } from './chart.reducers.js';
+import { statsResultsReducer, getStatsApiRequestReducer, loadingStateReducer } from './stats.reducers.js';
 
 export default combineReducers({
-  hourlyStats: hourlyStatsResultsReducer,
+  stats: statsResultsReducer,
   loadingState: loadingStateReducer,
-  apiRequest: getHourlyStatsApiRequestReducer
+  apiRequest: getStatsApiRequestReducer
 });
-

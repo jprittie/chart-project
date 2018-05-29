@@ -1,6 +1,11 @@
 /* TODO this is not how to set width and height for Victory */
 
-.hourlyStatsChart .VictoryContainer {
-  width: 90% !important;
-  height: 400px !important;
+.hourlyStatsChartRow {
+  width: 100%;
+  /* display: flex; */
 }
+
+/* .hourlyStatsChart .VictoryContainer { */
+  /* width: 100% !important; */
+  /* height: 400px !important;
+} */

@@ -1,13 +1,15 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 
-import Header from './components/Header';
+import './App.css';
+
+import DashboardNav from './components/DashboardNav';
 import ChartContainer from './components/ChartContainer';
 
 const App = () => (
   <BrowserRouter>
-    <div className='App'>
-      <Header />
+    <div>
+      <DashboardNav />
       <ChartContainer />
     </div>
   </BrowserRouter>

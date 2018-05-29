@@ -9,7 +9,7 @@ import HourlyStats from './HourlyStats';
 import HeatMap from './HeatMap';
 
 const ChartContainer = () => (
-  <div>
+  <div className='chart-container nine columns'>
     <Switch>
       <Route path='/hourlyEvents' component={HourlyEvents} />
       <Route path='/dailyEvents' component={DailyEvents} />
