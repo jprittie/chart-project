@@ -41,6 +41,32 @@ export const getStatsChart = (state, typeOfStatsChart) => {
   };
 };
 
+export const getEventsChart = (state, typeOfStatsChart) => {
+  const eventsResults = state.stats[typeOfStatsChart];
+  if (eventsResults) {
+    var filteredResults = eventsResults.filter(dataRow => dataRow.date == '2017-01-01T00:00:00.000Z');
+    var transformedResults = filteredResults.map(dataRow => {
+      return {x: dataRow.events, y: dataRow.hour};
+    });
+    console.log(transformedResults);
+  }
+  return transformedResults;
+};
+
+export const getDailyEventsChart = (state) => {
+  const eventsResults = state.stats.dailyEventsChart;
+  if (eventsResults) {
+    var transformedResults = eventsResults.map(dataRow => {
+      var msec = Date.parse(dataRow.date);
+      var d = new Date(msec);
+
+      return {x: new Date(d), y: parseInt(dataRow.events)};
+    });
+    console.log(transformedResults);
+  }
+  return transformedResults;
+};
+
 // {location: new google.maps.LatLng(37.782, -122.447), weight: 0.5},
 // const data = [
 //   new google.maps.LatLng(37.782551, -122.445368),
