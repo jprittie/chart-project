@@ -5,7 +5,8 @@ const DEFAULT_STATE = {
   hourlyStatsTable: null,
   hourlyEventsChart: null,
   dailyEventsChart: null,
-  dailyStatsChart: null
+  dailyStatsChart: null,
+  heatMap: null
 };
 
 // need another reducer to set current page number and size on state?

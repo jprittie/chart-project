@@ -6,40 +6,54 @@ import { withScriptjs, withGoogleMap, GoogleMap } from 'react-google-maps';
 // import HeatmapLayer from 'react-google-maps/lib/visualization/HeatmapLayer';
 import HeatmapLayer from 'react-google-maps/lib/components/visualization/HeatmapLayer';
 
-// import { getMapData } from '../redux/selectors';
+import { getMapData } from '../redux/selectors';
+import { statsApiRequest } from '../redux/actions/stats.actions.js';
 
-const MyMapComponent = withScriptjs(withGoogleMap((props) =>
-  <GoogleMap
-    defaultZoom={8}
-    defaultCenter={{ lat: 37.782, lng: -122.44 }}
-  >
-    <HeatmapLayer
-      data={[
-        new google.maps.LatLng(37.782551, -122.445368),
-        new google.maps.LatLng(37.782745, -122.444586),
-        new google.maps.LatLng(37.782842, -122.443688),
-        new google.maps.LatLng(37.782919, -122.442815),
-        new google.maps.LatLng(37.782992, -122.442112),
-        new google.maps.LatLng(37.783100, -122.441461)
-      ]}
-    />
+// lat":43.6708,"lon":-79.3899
 
-  </GoogleMap>
-));
+const MyMapComponent = withScriptjs(withGoogleMap((props) => {
+  const mapData = props.data;
+  if (mapData) {
+    var transformedData = mapData.map(dataRow => {
+      return { location: new google.maps.LatLng(dataRow.lat, dataRow.lon), weight: dataRow.impressions };
+    });
+  }
+  return (
+    <GoogleMap
+      defaultZoom={8}
+      defaultCenter={{ lat: 43.6708, lng: -79.3899 }}
+    >
+      <HeatmapLayer data={transformedData} />
 
-const HeatMap = ({}) => (
-  <MyMapComponent
-    googleMapURL='https://maps.googleapis.com/maps/api/js?key=AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg&v=3.exp&libraries=geometry,drawing,places,visualization'
-    loadingElement={<div style={{ height: `100%` }} />}
-    containerElement={<div style={{ height: `400px` }} />}
-    mapElement={<div style={{ height: `100%` }} />}
-  />
-);
+    </GoogleMap>
+  );
+}));
+
+class HeatMap extends React.Component {
+  componentDidMount () {
+    this.props.statsApiRequest({statsType: 'heatMap', endpoint: '/mapping', queryParams: ``});
+  }
+  render () {
+    return (
+      <MyMapComponent
+        googleMapURL='https://maps.googleapis.com/maps/api/js?key=AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg&v=3.exp&libraries=geometry,drawing,places,visualization'
+        loadingElement={<div style={{ height: `100%` }} />}
+        containerElement={<div style={{ height: `400px` }} />}
+        mapElement={<div style={{ height: `100%` }} />}
+        data={this.props.mapData}
+      />
+    );
+  }
+}
 
 /* Container */
 
 const mapStateToProps = (state) => ({
-  // mapData: getMapData(state)
+  mapData: getMapData(state)
 });
 
-export default connect(mapStateToProps)(HeatMap);
+const actions = {
+  statsApiRequest
+};
+
+export default connect(mapStateToProps, actions)(HeatMap);

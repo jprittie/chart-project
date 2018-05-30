@@ -1,5 +1,5 @@
 /* global google */
-
+import { withScriptjs, withGoogleMap, GoogleMap } from 'react-google-maps';
 // export const getHourlyStatsChart = (state) => {
 //   return state.stats.hourlyStatsChart;
 // };
@@ -77,7 +77,7 @@ export const getDailyEventsChart = (state) => {
 //   new google.maps.LatLng(37.783100, -122.441461)
 // ];
 export const getMapData = (state) => {
-
+  const mapResults = state.stats.heatMap;
   // return data;
   // on state, map filters will be set by default to impressions and a 24 hour time period
   // getState of filter category and time period; will need category as a variable in template string
@@ -85,15 +85,16 @@ export const getMapData = (state) => {
   // then transform data that is left
   // then mockMapData.map(dataRow => {
   // return `{location: new google.maps.LatLng(${dataRow.lat},${dataRow.lon}, weight: ${dataRow[category]}) }`)
+  // return `{location: new google.maps.LatLng(${dataRow.lat},${dataRow.lon}, weight: ${dataRow.impressions}) }`;
+  // { location: new google.maps.LatLng(dataRow.lat, dataRow.lon), weight: dataRow.impressions }
 
   // return state.mapData;
+  if (mapResults) {
+    var transformedResults = mapResults.map(dataRow => {
+      return `{location: new google.maps.LatLng(${dataRow.lat},${dataRow.lon}, weight: ${dataRow.impressions}) }`;
+    });
+  }
+  // console.log(JSON.stringify(transformedResults));
+  // return transformedResults;
+  return mapResults;
 };
-
-const mockMapData = [
-  {'date': '2017-01-01T00:00:00.000Z', 'hour': 0, 'impressions': 10746, 'clicks': 23, 'revenue': '64.9215630000000', 'poi_id': 3, 'lat': 43.0896, 'lon': -79.0849, 'poi_name': 'NiagaraFalls'},
-  {'date': '2017-01-01T00:00:00.000Z', 'hour': 1, 'impressions': 141397, 'clicks': 201, 'revenue': '696.4485960000000', 'poi_id': 4, 'lat': 49.2965, 'lon': -123.0884, 'poi_name': 'VancouverHarbour'},
-  {'date': '2017-01-01T00:00:00.000Z', 'hour': 2, 'impressions': 137464, 'clicks': 217, 'revenue': '732.0955030000000', 'poi_id': 1, 'lat': 43.6708, 'lon': -79.3899, 'poi_name': 'EQWorks'},
-  {'date': '2017-01-01T00:00:00.000Z', 'hour': 3, 'impressions': 109217, 'clicks': 139, 'revenue': '496.6397510000000', 'poi_id': 2, 'lat': 43.6426, 'lon': -79.3871, 'poi_name': 'CNTower'},
-  {'date': '2017-01-01T00:00:00.000Z', 'hour': 4, 'impressions': 112129, 'clicks': 74, 'revenue': '446.7138830000000', 'poi_id': 4, 'lat': 49.2965, 'lon': -123.0884, 'poi_name': 'VancouverHarbour'},
-  {'date': '2017-01-01T00:00:00.000Z', 'hour': 5, 'impressions': 105182, 'clicks': 76, 'revenue': '435.9536840000000', 'poi_id': 3, 'lat': 43.0896, 'lon': -79.0849, 'poi_name': 'Niagara Falls'}
-];
