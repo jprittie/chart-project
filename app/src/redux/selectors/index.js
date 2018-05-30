@@ -41,6 +41,7 @@ export const getStatsChart = (state, typeOfStatsChart) => {
   };
 };
 
+// don't hardcode date - will have to be user selected
 export const getEventsChart = (state, typeOfStatsChart) => {
   const eventsResults = state.stats[typeOfStatsChart];
   if (eventsResults) {
@@ -67,34 +68,13 @@ export const getDailyEventsChart = (state) => {
   return transformedResults;
 };
 
-// {location: new google.maps.LatLng(37.782, -122.447), weight: 0.5},
-// const data = [
-//   new google.maps.LatLng(37.782551, -122.445368),
-//   new google.maps.LatLng(37.782745, -122.444586),
-//   new google.maps.LatLng(37.782842, -122.443688),
-//   new google.maps.LatLng(37.782919, -122.442815),
-//   new google.maps.LatLng(37.782992, -122.442112),
-//   new google.maps.LatLng(37.783100, -122.441461)
-// ];
+// I will filter by time range here (what is default?) and then by user selected category in the component
 export const getMapData = (state) => {
   const mapResults = state.stats.heatMap;
-  // return data;
-  // on state, map filters will be set by default to impressions and a 24 hour time period
-  // getState of filter category and time period; will need category as a variable in template string
-  // first, filter by selected category(i.e. impressions) and by time range (do separate filter function)
-  // then transform data that is left
-  // then mockMapData.map(dataRow => {
-  // return `{location: new google.maps.LatLng(${dataRow.lat},${dataRow.lon}, weight: ${dataRow[category]}) }`)
-  // return `{location: new google.maps.LatLng(${dataRow.lat},${dataRow.lon}, weight: ${dataRow.impressions}) }`;
-  // { location: new google.maps.LatLng(dataRow.lat, dataRow.lon), weight: dataRow.impressions }
-
-  // return state.mapData;
-  if (mapResults) {
-    var transformedResults = mapResults.map(dataRow => {
-      return `{location: new google.maps.LatLng(${dataRow.lat},${dataRow.lon}, weight: ${dataRow.impressions}) }`;
-    });
-  }
-  // console.log(JSON.stringify(transformedResults));
-  // return transformedResults;
   return mapResults;
 };
+
+// export const getSelectedMapMetrics = (state) => {
+//   const mapCategory = state.stats.heatMap.selectedMetrics.category;
+//   return mapCategory;
+// };

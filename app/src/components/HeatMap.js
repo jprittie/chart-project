@@ -6,7 +6,7 @@ import { withScriptjs, withGoogleMap, GoogleMap } from 'react-google-maps';
 // import HeatmapLayer from 'react-google-maps/lib/visualization/HeatmapLayer';
 import HeatmapLayer from 'react-google-maps/lib/components/visualization/HeatmapLayer';
 
-import { getMapData } from '../redux/selectors';
+import { getMapData, getSelectedMapMetrics } from '../redux/selectors';
 import { statsApiRequest } from '../redux/actions/stats.actions.js';
 
 // lat":43.6708,"lon":-79.3899
@@ -50,6 +50,7 @@ class HeatMap extends React.Component {
 
 const mapStateToProps = (state) => ({
   mapData: getMapData(state)
+  // category: getSelectedMapMetrics(state)
 });
 
 const actions = {
