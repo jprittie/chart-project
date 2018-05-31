@@ -3,14 +3,13 @@
 .hourlyStatsChart {
   width: 100%;
   padding-top: 20px;
-  /* display: flex; */
 }
 
 .hourlyStatsChart h3 {
   text-align: center;
 }
 
-/* .hourlyStatsChart .VictoryContainer { */
-  /* width: 100% !important; */
-  /* height: 400px !important;
-} */
+.hourlyStatsChart tspan, .hourlyStatsChart text {
+  font-family: Roboto, sans-serif !important;
+  fill: darkslategrey !important;
+}

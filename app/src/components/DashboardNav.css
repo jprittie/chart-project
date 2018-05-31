@@ -1,19 +1,38 @@
 .dashboard-nav {
-  height: 100vw;
+  height: 120vh;;
+  width: 20%;
+  min-width: 200px;
   margin-right: 0;
   padding-top: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  background-color: #9593BC;
 }
 
 .dashboard-nav-options {
-  margin-top: 40px;
+  width: 100%;
+  padding: 0 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.dashboard-nav-options a {
-  display: block;
-  color: black;
-  margin-bottom: 10px;
+.dashboard-nav-category {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  color: darkslategrey;
   text-align: center;
+  text-decoration: none;
+  background-color: #8281A5;
+  margin-bottom: 20px;
+}
+
+div.dashboard-nav-category a {
+  color: darkslategrey;
+}
+
+div.dashboard-nav-category:hover {
+  background-color: #706E8D;
+  color: lightgrey;
 }

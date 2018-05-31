@@ -9,8 +9,13 @@ import ChartContainer from './components/ChartContainer';
 const App = () => (
   <BrowserRouter>
     <div>
-      <DashboardNav />
-      <ChartContainer />
+      <div className='App-header'>
+        Statistics Dashboard
+      </div>
+      <div className='App-container'>
+        <DashboardNav />
+        <ChartContainer />
+      </div>
     </div>
   </BrowserRouter>
 );

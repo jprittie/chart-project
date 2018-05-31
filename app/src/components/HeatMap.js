@@ -8,6 +8,7 @@ import HeatmapLayer from 'react-google-maps/lib/components/visualization/Heatmap
 
 import { getMapData, getSelectedMapMetrics } from '../redux/selectors';
 import { statsApiRequest } from '../redux/actions/stats.actions.js';
+import './HeatMap.css';
 
 // lat":43.6708,"lon":-79.3899
 
@@ -35,13 +36,15 @@ class HeatMap extends React.Component {
   }
   render () {
     return (
-      <MyMapComponent
-        googleMapURL='https://maps.googleapis.com/maps/api/js?key=AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg&v=3.exp&libraries=geometry,drawing,places,visualization'
-        loadingElement={<div style={{ height: `100%` }} />}
-        containerElement={<div style={{ height: `400px` }} />}
-        mapElement={<div style={{ height: `100%` }} />}
-        data={this.props.mapData}
-      />
+      <div className='Heatmap-container'>
+        <MyMapComponent
+          googleMapURL='https://maps.googleapis.com/maps/api/js?key=AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg&v=3.exp&libraries=geometry,drawing,places,visualization'
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={<div style={{ height: `500px`, width: '800px' }} />}
+          mapElement={<div style={{ height: `100%` }} />}
+          data={this.props.mapData}
+        />
+      </div>
     );
   }
 }

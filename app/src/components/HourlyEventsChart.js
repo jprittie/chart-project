@@ -35,7 +35,7 @@ class HourlyEventsChart extends React.Component {
             {/* }<VictoryLabel text='Events By Hour' x={225} y={30} textAnchor='middle' /> */}
             <VictoryLine
               style={{
-                data: { stroke: '#c43a31' },
+                data: { stroke: '#706E8D' },
                 parent: { border: '1px solid #ccc' }
               }}
               data={this.props.hourlyEventsChart}
@@ -59,6 +59,7 @@ class HourlyEventsChart extends React.Component {
             {/* }<VictoryLabel text='Number of Events By Hour' x={225} y={30} textAnchor='middle' /> */}
             <VictoryBar
               data={this.props.hourlyEventsChart}
+              style={{ data: { fill: '#706E8D' } }}
             />
           </VictoryChart>
           </div>

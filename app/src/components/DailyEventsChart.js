@@ -41,7 +41,7 @@ class DailyEventsChart extends React.Component {
             />
             <VictoryLine
               style={{
-                data: { stroke: '#c43a31' },
+                data: { stroke: '#706E8D' },
                 parent: { border: '1px solid #ccc' }
               }}
               data={this.props.dailyEventsChart}
@@ -72,6 +72,7 @@ class DailyEventsChart extends React.Component {
             />
             <VictoryBar
               data={this.props.dailyEventsChart}
+              style={{ data: { fill: '#706E8D' } }}
             />
           </VictoryChart>
         </div>

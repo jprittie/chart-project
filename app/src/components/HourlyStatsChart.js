@@ -52,7 +52,7 @@ class HourlyStatsChart extends React.Component {
             /> */}
             <VictoryLine
               style={{
-                data: { stroke: '#c43a31' },
+                data: { stroke: '#706E8D' },
                 parent: { border: '1px solid #ccc' }
               }}
               data={this.props.hourlyStatsChart.revenuePerThousandImpressionByHour}
@@ -75,7 +75,7 @@ class HourlyStatsChart extends React.Component {
             <VictoryLabel text='Clickthrough Rate (CTR) By Hour' x={225} y={30} textAnchor='middle' />
             <VictoryLine
               style={{
-                data: { stroke: '#c43a31' },
+                data: { stroke: '#706E8D' },
                 parent: { border: '1px solid #ccc' }
               }}
               data={this.props.hourlyStatsChart.clickThroughRatePerHour}
@@ -101,12 +101,12 @@ class HourlyStatsChart extends React.Component {
               // alignment='start'
             >
               <VictoryBar
-                // style={{ data: { fill: "#c43a31" } }}
+                style={{ data: { fill: '#706E8D' } }}
                 alignment='start'
                 data={this.props.hourlyStatsChart.revenueByHour}
               />
               <VictoryBar
-                // style={{ data: { fill: "#c43a31" } }}
+                style={{ data: { fill: '#4B4A5E' } }}
                 alignment='start'
                 data={this.props.hourlyStatsChart.clicksByHour}
               />

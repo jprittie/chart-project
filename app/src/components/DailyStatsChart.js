@@ -42,15 +42,18 @@ class DailyStatsChart extends React.Component {
             /> */}
             <VictoryLine
               style={{
-                data: { stroke: '#c43a31' },
+                data: { stroke: '#706E8D' },
                 parent: { border: '1px solid #ccc' }
               }}
               data={this.props.dailyStatsChart.revenuePerThousandImpressionByHour}
             />
           </VictoryChart>
           <VictoryChart height={200} width={800}
-            theme={VictoryTheme.material}
+            // theme={VictoryTheme.material}
             domainPadding={{ y: 10 }}
+            style={{
+              labels: {fontSize: 12, fontFamily: 'Roboto, sans-serif'}
+            }}
             containerComponent={
               <VictoryVoronoiContainer
                 voronoiDimension='x'
@@ -62,10 +65,14 @@ class DailyStatsChart extends React.Component {
                   />}
               />}
           >
-            <VictoryLabel text='Clickthrough Rate (CTR) By Day' x={225} y={30} textAnchor='middle' />
+            <VictoryLabel
+              text='Clickthrough Rate (CTR) By Day'
+              x={225} y={30}
+              textAnchor='middle'
+            />
             <VictoryLine
               style={{
-                data: { stroke: '#c43a31' },
+                data: { stroke: '#706E8D' },
                 parent: { border: '1px solid #ccc' }
               }}
               data={this.props.dailyStatsChart.clickThroughRatePerHour}
@@ -91,9 +98,11 @@ class DailyStatsChart extends React.Component {
             >
               <VictoryBar
                 data={this.props.dailyStatsChart.revenueByHour}
+                style={{ data: { fill: '#706E8D' } }}
               />
               <VictoryBar
                 data={this.props.dailyStatsChart.clicksByHour}
+                style={{ data: { fill: '#4B4A5E' } }}
               />
               {/*
               <VictoryBar
