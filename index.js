@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 
 app.get('/events/hourly', (req, res, next) => {
   req.sqlQuery = `
-    SELECT date, hour, events
+    SELECT date, hour, events, poi_id
     FROM public.hourly_events
     ORDER BY date, hour
     LIMIT 168;
@@ -37,39 +37,24 @@ app.get('/events/daily', (req, res, next) => {
   return next();
 }, queryHandler);
 
-app.get('/stats/hourly/resultsCount', (req, res, next) => {
+/** Default route kept in case client-side developer doesn't want pagination */
+app.get('/stats/hourly', (req, res, next) => {
   req.sqlQuery = `
-    SELECT COUNT(*)
-    FROM public.hourly_stats;
+    SELECT date, hour, impressions, clicks, revenue
+    FROM public.hourly_stats
+    ORDER BY date, hour
+    LIMIT 168;
   `;
   return next();
 }, queryHandler);
 
-// rate limiting
-// create a Map with req.ip
-// add each request to array when it comes in
-// use this to limit how often you call return next();
-// I can throttle how often I call return next()
-// but to do this in a series I have to know when the database query has returned
-
-// allow user to pass page and page_size as query params
-// I could still use limit and offset for the sql query, but I should not expect the client-side
-// developer to calculate what the offset is
-// a client-side developer might not need to know how many records there are, but they would need
-// to know how many pages of data there are for a certain page size
-// how can I alter queryHandler so that I can also send back the page count?
-// I have read that offset can cause a problem with big datasets
-// also note that SELECT COUNT(*) can be slow
-// and I do not want to count all the rows every time client side changes the page
-// client-side caching; use node cache? but wouldn't I just put results from previous queries
-// in the redux store?
+/** New route that offers pagination; take page number and page size parameters */
 app.get('/stats/hourly/:page/:page_size', (req, res, next) => {
   let page = req.params.page;
   let limit = req.params.page_size;
-  // let pages = Math.ceil(resultsCount / limit);
   let offset = limit * (page - 1);
   req.sqlQuery = `
-    SELECT date, hour, impressions, clicks, revenue
+    SELECT date, hour, impressions, clicks, revenue, poi_id
     FROM public.hourly_stats
     ORDER BY date, hour
     LIMIT ${limit}
@@ -77,17 +62,6 @@ app.get('/stats/hourly/:page/:page_size', (req, res, next) => {
   `;
   return next();
 }, queryHandler);
-
-// default route - make this return fixed pages?
-// app.get('/stats/hourly', (req, res, next) => {
-//   req.sqlQuery = `
-//     SELECT date, hour, impressions, clicks, revenue
-//     FROM public.hourly_stats
-//     ORDER BY date, hour
-//     LIMIT 168;
-//   `;
-//   return next();
-// }, queryHandler);
 
 app.get('/stats/daily', (req, res, next) => {
   req.sqlQuery = `
@@ -107,6 +81,25 @@ app.get('/poi', (req, res, next) => {
   req.sqlQuery = `
     SELECT *
     FROM public.poi;
+  `;
+  return next();
+}, queryHandler);
+
+/** New route that provides data for mapping events and statistics */
+app.get('/mapping', (req, res, next) => {
+  req.sqlQuery = `
+    SELECT h.date AS date,
+           h.hour AS hour,
+           h.impressions AS impressions,
+           h.clicks AS clicks,
+           h.revenue AS revenue,
+           p.poi_id AS poi_id,
+           p.lat AS lat,
+           p.lon AS lon,
+           p.name AS poi_name
+    FROM public.poi p INNER JOIN public.hourly_stats h ON p.poi_id = h.poi_id
+    ORDER BY date, hour
+    LIMIT 24
   `;
   return next();
 }, queryHandler);
