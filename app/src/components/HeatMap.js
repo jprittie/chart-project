@@ -3,14 +3,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { withScriptjs, withGoogleMap, GoogleMap } from 'react-google-maps';
-// import HeatmapLayer from 'react-google-maps/lib/visualization/HeatmapLayer';
 import HeatmapLayer from 'react-google-maps/lib/components/visualization/HeatmapLayer';
 
-import { getMapData, getSelectedMapMetrics } from '../redux/selectors';
+import { getMapData } from '../redux/selectors';
 import { statsApiRequest } from '../redux/actions/stats.actions.js';
 import './HeatMap.css';
 
-// lat":43.6708,"lon":-79.3899
+/** TODO add UI so user can filter by type of metric and time range */
 
 const MyMapComponent = withScriptjs(withGoogleMap((props) => {
   const mapData = props.data;
@@ -21,8 +20,8 @@ const MyMapComponent = withScriptjs(withGoogleMap((props) => {
   }
   return (
     <GoogleMap
-      defaultZoom={8}
-      defaultCenter={{ lat: 43.6708, lng: -79.3899 }}
+      defaultZoom={4}
+      defaultCenter={{ lat: 50.55, lng: -97.26 }}
     >
       <HeatmapLayer data={transformedData} />
 
@@ -37,10 +36,11 @@ class HeatMap extends React.Component {
   render () {
     return (
       <div className='Heatmap-container'>
+        <h3>Intensity of impressions by event location</h3>
         <MyMapComponent
           googleMapURL='https://maps.googleapis.com/maps/api/js?key=AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg&v=3.exp&libraries=geometry,drawing,places,visualization'
           loadingElement={<div style={{ height: `100%` }} />}
-          containerElement={<div style={{ height: `500px`, width: '800px' }} />}
+          containerElement={<div style={{ height: `460px`, width: '800px' }} />}
           mapElement={<div style={{ height: `100%` }} />}
           data={this.props.mapData}
         />
@@ -53,7 +53,6 @@ class HeatMap extends React.Component {
 
 const mapStateToProps = (state) => ({
   mapData: getMapData(state)
-  // category: getSelectedMapMetrics(state)
 });
 
 const actions = {

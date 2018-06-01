@@ -1,10 +1,9 @@
 .Heatmap-container {
-  /* width: 90%;
-  height: 90% */
-  /* display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 40px; */
   margin-top: 30px;
   margin-left: 30px;
+}
+
+.Heatmap-container h3 {
+  text-align: center;
+  margin-bottom: 20px;
 }

@@ -1,13 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { VictoryLine, VictoryChart, VictoryLabel, VictoryTheme, VictoryVoronoiContainer, VictoryTooltip, VictoryGroup, VictoryBar } from 'victory';
-import './HourlyStatsChart.css';
+import {
+  VictoryLine,
+  VictoryChart,
+  VictoryLabel,
+  VictoryTheme,
+  VictoryAxis,
+  VictoryVoronoiContainer,
+  VictoryTooltip,
+  VictoryBar
+} from 'victory';
+import './StatsChart.css';
 
 import { getStatsChart } from '../redux/selectors';
 import { statsApiRequest } from '../redux/actions/stats.actions.js';
 
-// TODO make date actual day instead of a number
 class DailyStatsChart extends React.Component {
   componentDidMount () {
     this.props.statsApiRequest({statsType: 'dailyStatsChart', endpoint: '/stats/daily', queryParams: ``});
@@ -15,7 +23,7 @@ class DailyStatsChart extends React.Component {
 
   render () {
     return (
-      <div className='hourlyStatsChart'>
+      <div className='StatsChart'>
         { (this.props.dailyStatsChart) &&
         <div>
           <h3> Daily Stats</h3>
@@ -34,12 +42,8 @@ class DailyStatsChart extends React.Component {
               />}
           >
             <VictoryLabel text='Revenue Per Thousand Impressions (RPM) By Day' x={225} y={30} textAnchor='middle' />
-            {/* }<VictoryAxis />
-            <VictoryAxis
-              dependentAxis
-              tickValues={[200, 400, 600, 800]}
-              tickFormat={(tick) => `$${tick}`}
-            /> */}
+            <VictoryAxis tickValues={[1, 2, 3, 4, 5, 6]} />
+            <VictoryAxis dependentAxis />
             <VictoryLine
               style={{
                 data: { stroke: '#706E8D' },
@@ -49,7 +53,6 @@ class DailyStatsChart extends React.Component {
             />
           </VictoryChart>
           <VictoryChart height={200} width={800}
-            // theme={VictoryTheme.material}
             domainPadding={{ y: 10 }}
             style={{
               labels: {fontSize: 12, fontFamily: 'Roboto, sans-serif'}
@@ -70,6 +73,8 @@ class DailyStatsChart extends React.Component {
               x={225} y={30}
               textAnchor='middle'
             />
+            <VictoryAxis tickValues={[1, 2, 3, 4, 5, 6]} />
+            <VictoryAxis dependentAxis />
             <VictoryLine
               style={{
                 data: { stroke: '#706E8D' },
@@ -79,12 +84,11 @@ class DailyStatsChart extends React.Component {
             />
           </VictoryChart>
           <VictoryChart height={200} width={800}
-            theme={VictoryTheme.material}
-            domainPadding={{ x: 100 }}
+            domainPadding={{x: 5}}
             containerComponent={
               <VictoryVoronoiContainer
                 voronoiDimension='x'
-                labels={(d) => `${d.y}`}
+                labels={(d) => `Clicks: ${d.y}`}
                 labelComponent={
                   <VictoryTooltip
                     cornerRadius={0}
@@ -92,24 +96,13 @@ class DailyStatsChart extends React.Component {
                   />}
               />}
           >
-            <VictoryLabel text='Clicks and Revenue By Day' x={225} y={30} textAnchor='middle' />
-            <VictoryGroup offset={-25}
-              colorScale={'qualitative'}
-            >
-              <VictoryBar
-                data={this.props.dailyStatsChart.revenueByHour}
-                style={{ data: { fill: '#706E8D' } }}
-              />
-              <VictoryBar
-                data={this.props.dailyStatsChart.clicksByHour}
-                style={{ data: { fill: '#4B4A5E' } }}
-              />
-              {/*
-              <VictoryBar
-                data={this.props.hourlyStatsChart.impressionsByHour}
-              />
-              */}
-            </VictoryGroup>
+            <VictoryLabel text='Clicks By Day' x={225} y={30} textAnchor='middle' />
+            <VictoryAxis tickValues={[1, 2, 3, 4, 5, 6]} />
+            <VictoryAxis dependentAxis />
+            <VictoryBar
+              data={this.props.dailyStatsChart.clicksByHour}
+              style={{ data: { fill: '#4B4A5E' } }}
+            />
           </VictoryChart>
         </div>
         }

@@ -1,30 +1,37 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { VictoryLine, VictoryChart, VictoryLabel, VictoryTheme, VictoryVoronoiContainer, VictoryTooltip, VictoryBar } from 'victory';
-import './HourlyStatsChart.css';
+import {
+  VictoryLine,
+  VictoryChart,
+  VictoryTheme,
+  VictoryVoronoiContainer,
+  VictoryTooltip,
+  VictoryBar
+} from 'victory';
+import './StatsChart.css';
 
-import { getEventsChart } from '../redux/selectors';
+import { getHourlyEventsChart } from '../redux/selectors';
 import { statsApiRequest } from '../redux/actions/stats.actions.js';
 
-// TODO to render day, must also send back date from selector
-// just restructure it into an object with date: and values:
+/** TODO Remove hardcoded date and add UI and related redux so user can select which day to view */
+
 class HourlyEventsChart extends React.Component {
   componentDidMount () {
     this.props.statsApiRequest({statsType: 'hourlyEventsChart', endpoint: 'events/hourly', queryParams: ``});
   }
   render () {
     return (
-      <div className='hourlyStatsChart'>
+      <div className='StatsChart'>
         { (this.props.hourlyEventsChart) &&
         <div>
-          <h3> Number of Events By Hour </h3>
+          <h3> Number of Events By Hour for {this.props.hourlyEventsChart.date} </h3>
           <VictoryChart height={200} width={800}
             theme={VictoryTheme.material}
             containerComponent={
               <VictoryVoronoiContainer
                 voronoiDimension='x'
-                labels={(d) => `${d.y}`}
+                labels={(d) => `Events: ${d.y}, Hour: ${d.x}`}
                 labelComponent={
                   <VictoryTooltip
                     cornerRadius={0}
@@ -32,13 +39,12 @@ class HourlyEventsChart extends React.Component {
                   />}
               />}
           >
-            {/* }<VictoryLabel text='Events By Hour' x={225} y={30} textAnchor='middle' /> */}
             <VictoryLine
               style={{
                 data: { stroke: '#706E8D' },
                 parent: { border: '1px solid #ccc' }
               }}
-              data={this.props.hourlyEventsChart}
+              data={this.props.hourlyEventsChart.chartData}
             />
           </VictoryChart>
 
@@ -48,7 +54,7 @@ class HourlyEventsChart extends React.Component {
             containerComponent={
               <VictoryVoronoiContainer
                 voronoiDimension='x'
-                labels={(d) => `${d.y}`}
+                labels={(d) => `Events: ${d.y}, Hour: ${d.x}`}
                 labelComponent={
                   <VictoryTooltip
                     cornerRadius={0}
@@ -56,9 +62,8 @@ class HourlyEventsChart extends React.Component {
                   />}
               />}
           >
-            {/* }<VictoryLabel text='Number of Events By Hour' x={225} y={30} textAnchor='middle' /> */}
             <VictoryBar
-              data={this.props.hourlyEventsChart}
+              data={this.props.hourlyEventsChart.chartData}
               style={{ data: { fill: '#706E8D' } }}
             />
           </VictoryChart>
@@ -72,7 +77,7 @@ class HourlyEventsChart extends React.Component {
 /* Container */
 
 const mapStateToProps = (state) => ({
-  hourlyEventsChart: getEventsChart(state, 'hourlyEventsChart')
+  hourlyEventsChart: getHourlyEventsChart(state)
 });
 
 const actions = {

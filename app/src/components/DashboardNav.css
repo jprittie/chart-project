@@ -1,4 +1,4 @@
-.dashboard-nav {
+.Dashboard-nav {
   height: 120vh;;
   width: 20%;
   min-width: 200px;
@@ -7,7 +7,7 @@
   background-color: #9593BC;
 }
 
-.dashboard-nav-options {
+.Dashboard-nav-options {
   width: 100%;
   padding: 0 10px;
   display: flex;
@@ -15,7 +15,7 @@
   justify-content: center;
 }
 
-.dashboard-nav-category {
+.Dashboard-nav-category {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,15 +24,15 @@
   color: darkslategrey;
   text-align: center;
   text-decoration: none;
-  background-color: #8281A5;
   margin-bottom: 20px;
 }
 
-div.dashboard-nav-category a {
+.Dashboard-nav-category a {
   color: darkslategrey;
+  text-decoration: none;
 }
 
-div.dashboard-nav-category:hover {
-  background-color: #706E8D;
-  color: lightgrey;
+.Dashboard-nav-category a:hover {
+  color: slategrey;
+  text-decoration: none;
 }

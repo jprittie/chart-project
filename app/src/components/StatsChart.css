@@ -1,0 +1,13 @@
+.StatsChart {
+  width: 100%;
+  padding-top: 20px;
+}
+
+.StatsChart h3 {
+  text-align: center;
+}
+
+.StatsChart tspan, .hourlyStatsChart text {
+  font-family: Roboto, sans-serif !important;
+  fill: darkslategrey !important;
+}

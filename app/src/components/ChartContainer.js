@@ -5,13 +5,12 @@ import './ChartContainer.css';
 import HourlyEventsChart from './HourlyEventsChart';
 import DailyEventsChart from './DailyEventsChart';
 import DailyStatsChart from './DailyStatsChart';
-// import HourlyStats from './HourlyStats';
 import HourlyStatsChart from './HourlyStatsChart';
 import HourlyStatsTable from './HourlyStatsTable';
 import HeatMap from './HeatMap';
 
 const ChartContainer = () => (
-  <div className='chart-container'>
+  <div className='ChartContainer'>
     <Switch>
       <Route path='/hourlyEvents' component={HourlyEventsChart} />
       <Route path='/dailyEvents' component={DailyEventsChart} />

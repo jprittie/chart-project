@@ -2,7 +2,7 @@ import { STATS_ACTIONS } from '../actions/stats.actions.js';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/mergeMap';
 
-// Observable.ajax(`stats/hourly/${action.payload.page}/${action.payload.page_size}`)
+// TODO Add loading spinner in UI that is displayed while loading state is true
 
 export const getStatsEpic = action$ =>
 

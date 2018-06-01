@@ -9,7 +9,6 @@ const DEFAULT_STATE = {
   heatMap: null
 };
 
-// need another reducer to set current page number and size on state?
 export const getStatsApiRequestReducer = (state = {}, action) => {
   if (action.type === STATS_ACTIONS.GET_STATS) {
     return {...action.payload};

@@ -1,14 +1,7 @@
-
-.chart-container {
+.ChartContainer {
   background-color: #E5E4EE;
   width: 80%;
   min-width: 800px;
   margin-right: 0;
   overflow-y: scroll;
 }
-
-/* @media (min-width: 550px) {
-  .chart-container {
-    margin-right: 0 !important;
-  }
-} */

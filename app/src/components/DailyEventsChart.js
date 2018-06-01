@@ -1,8 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { VictoryLine, VictoryChart, VictoryAxis, VictoryLabel, VictoryTheme, VictoryVoronoiContainer, VictoryTooltip, VictoryBar } from 'victory';
-import './HourlyStatsChart.css';
+import {
+  VictoryLine,
+  VictoryChart,
+  VictoryAxis,
+  VictoryTheme,
+  VictoryVoronoiContainer,
+  VictoryTooltip,
+  VictoryBar
+} from 'victory';
+import './StatsChart.css';
 
 import { getDailyEventsChart } from '../redux/selectors';
 import { statsApiRequest } from '../redux/actions/stats.actions.js';
@@ -14,7 +22,7 @@ class DailyEventsChart extends React.Component {
 
   render () {
     return (
-      <div className='hourlyStatsChart'>
+      <div className='StatsChart'>
         { (this.props.dailyEventsChart) &&
         <div>
           <h3> Number of Events By Day</h3>
@@ -31,7 +39,6 @@ class DailyEventsChart extends React.Component {
                   />}
               />}
           >
-            {/* }<VictoryLabel text='Number of Events By Day' x={225} y={30} textAnchor='middle' /> */}
             <VictoryAxis
               tickFormat={(tick) => new Date(tick).toLocaleDateString()}
             />
@@ -62,13 +69,11 @@ class DailyEventsChart extends React.Component {
                   />}
               />}
           >
-            {/* <VictoryLabel text='Number of Events By Day' x={225} y={30} textAnchor='middle' /> */}
             <VictoryAxis
               tickFormat={(tick) => new Date(tick).toLocaleDateString()}
             />
             <VictoryAxis
               dependentAxis
-              // tickValues={[15, 20, 25, 30, 35, 40]}
             />
             <VictoryBar
               data={this.props.dailyEventsChart}

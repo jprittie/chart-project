@@ -3,16 +3,10 @@ import { connect } from 'react-redux';
 
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
-import './HourlyStatsTable.css';
+import './StatsTable.css';
 
 import { getHourlyStatsTable } from '../redux/selectors';
 import { statsApiRequest } from '../redux/actions/stats.actions.js';
-
-// TODO change timestamp to date to be user-friendly, change revenue to two decimal places
-// do this in the selector
-// make API call to get page count
-// I'm going to have to make two different API calls; will need to set separate chart and table data on state
-// Also I probably want a lot more data for the chart than I do for a table page
 
 class HourlyStatsTable extends React.Component {
   componentDidMount () {
@@ -39,7 +33,7 @@ class HourlyStatsTable extends React.Component {
     }];
 
     return (
-      <div className='HourlyStatsTable-container'>
+      <div className='StatsTable'>
         { hourlyTableStats &&
           <ReactTable
             className='-striped -highlight'

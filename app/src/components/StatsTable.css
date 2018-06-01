@@ -1,0 +1,40 @@
+.StatsTable {
+  width: 100%;
+  height: 100vh;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  font-size: 10px;
+}
+
+.StatsTable .ReactTable {
+  height: 95vh;
+  width: 800px;
+}
+
+.StatsTable .ReactTable .-pagination {
+  height: 40px;
+}
+
+.StatsTable .ReactTable .-pagination .-pageInfo {
+  display: inline-block;
+  margin: 3px 10px;
+  white-space: nowrap;
+  height: 32px;
+  display: flex;
+  align-items: center;
+}
+
+.StatsTable .ReactTable .-pagination .-pageJump {
+  height: 40px;
+  margin: 0 10px;
+}
+
+.StatsTable .ReactTable .-pagination .-pageJump input {
+  height: 100%;
+  background-color: #E5E4EE;
+}
+
+.StatsTable .-totalPages {
+  margin-left: 5px;
+}
