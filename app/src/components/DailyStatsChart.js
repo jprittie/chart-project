@@ -74,34 +74,13 @@ class DailyStatsChart extends React.Component {
               textAnchor='middle'
             />
             <VictoryAxis tickValues={[1, 2, 3, 4, 5, 6]} />
-            <VictoryAxis dependentAxis />
+            <VictoryAxis dependentAxis tickValues={[0.13, 0.14, 0.15, 0.16]} />
             <VictoryLine
               style={{
                 data: { stroke: '#706E8D' },
                 parent: { border: '1px solid #ccc' }
               }}
               data={this.props.dailyStatsChart.clickThroughRatePerHour}
-            />
-          </VictoryChart>
-          <VictoryChart height={200} width={800}
-            domainPadding={{x: 5}}
-            containerComponent={
-              <VictoryVoronoiContainer
-                voronoiDimension='x'
-                labels={(d) => `Clicks: ${d.y}`}
-                labelComponent={
-                  <VictoryTooltip
-                    cornerRadius={0}
-                    flyoutStyle={{ fill: 'white' }}
-                  />}
-              />}
-          >
-            <VictoryLabel text='Clicks By Day' x={225} y={30} textAnchor='middle' />
-            <VictoryAxis tickValues={[1, 2, 3, 4, 5, 6]} />
-            <VictoryAxis dependentAxis />
-            <VictoryBar
-              data={this.props.dailyStatsChart.clicksByHour}
-              style={{ data: { fill: '#4B4A5E' } }}
             />
           </VictoryChart>
         </div>

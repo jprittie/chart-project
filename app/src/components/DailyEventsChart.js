@@ -31,7 +31,7 @@ class DailyEventsChart extends React.Component {
             containerComponent={
               <VictoryVoronoiContainer
                 voronoiDimension='x'
-                labels={(d) => `${d.y}`}
+                labels={(d) => `Events: ${d.y}`}
                 labelComponent={
                   <VictoryTooltip
                     cornerRadius={0}
@@ -61,7 +61,7 @@ class DailyEventsChart extends React.Component {
             containerComponent={
               <VictoryVoronoiContainer
                 voronoiDimension='x'
-                labels={(d) => `${d.y}`}
+                labels={(d) => `Events: ${d.y}`}
                 labelComponent={
                   <VictoryTooltip
                     cornerRadius={0}

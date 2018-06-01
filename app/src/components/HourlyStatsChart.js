@@ -10,7 +10,7 @@ import {
   VictoryTooltip,
   VictoryGroup,
   VictoryBar
- } from 'victory';
+} from 'victory';
 import './StatsChart.css';
 
 import { getStatsChart } from '../redux/selectors';
@@ -76,16 +76,6 @@ class HourlyStatsChart extends React.Component {
           <VictoryChart height={200} width={800}
             theme={VictoryTheme.material}
             domainPadding={{ x: 10 }}
-            containerComponent={
-              <VictoryVoronoiContainer
-                voronoiDimension='x'
-                labels={(d) => `${d.y}`}
-                labelComponent={
-                  <VictoryTooltip
-                    cornerRadius={0}
-                    flyoutStyle={{ fill: 'white' }}
-                  />}
-              />}
           >
             <VictoryLabel text='Clicks and Revenue By Hour' x={225} y={30} textAnchor='middle' />
             <VictoryGroup offset={-5}
