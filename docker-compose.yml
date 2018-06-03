@@ -28,7 +28,6 @@ services:
     environment:
       DATABASE_URL: process.env.PGHOST
       NODE_ENV: development
-      REDIS_HOST: redis://redis:6379
     links:
       - 'redis'
     command: npm run dev

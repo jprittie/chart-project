@@ -8,11 +8,10 @@ const app = express();
 const pool = new pg.Pool();
 
 const redis = require('redis');
-// const client = redis.createClient();
 const client = redis.createClient('redis://redis:6379');
 const mw = require('./rate-limit.js');
 
-// test redis connection
+// Test redis connection
 client.on('connect', function () {
   console.log('connected');
 });
@@ -32,12 +31,6 @@ app.get('/', (req, res) => {
 });
 
 app.get('/events/hourly', mw.rateLimit(client), (req, res, next) => {
-  // let ip = req.headers['x-forwarded-for'] ||
-  //       req.connection.remoteAddress ||
-  //       req.socket.remoteAddress ||
-  //       req.connection.socket.remoteAddress;
-  // console.log(req.path, ip);
-  // console.log(req.ip);
   req.sqlQuery = `
     SELECT date, hour, events, poi_id
     FROM public.hourly_events

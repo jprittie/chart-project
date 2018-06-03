@@ -1,6 +1,12 @@
-/** Middleware for rate limiting an API */
+/**
+  * This module contains middleware for rate limiting an API
+  * First we get the IP from the req object, and check whether client set an array of IP addresses
+  * Then we create a countKey, which combines the IP and the path
+  * We check whether the key exists in Redis; if it doesn't, we set it with a minute expiry
+  * If the key does exist, and its value is less than five, we increment value and return next()
+  * If the five hits per minute limit has been reached, we send a message saying the limit was hit
+*/
 
-// NB I may just be able to use req.ip
 module.exports = {
   rateLimit: function (client) {
     return function (req, res, next) {
@@ -9,28 +15,23 @@ module.exports = {
             req.connection.remoteAddress ||
             req.socket.remoteAddress ||
             req.connection.socket.remoteAddress;
-
-        // this check is necessary for some clients that set an array of IP addresses
       ip = (ip || '').split(',')[0];
 
-      const countKey = `key:${req.path}&${ip}:count`;
-      // check whether key exists yet
-      client.get('countKey', function (err, reply) {
-        console.log('reply', reply);
-        // if key is empty, then set key, with minute expiry
+      const countKey = `${req.path}&${ip}`;
+
+      client.get(countKey, function (err, reply) {
+        if (err) throw err;
+
         if (!reply) {
-          client.set('countKey', '1', 'EX', 60, function (err, reply) {
-            if (err) throw err;
-          });
+          client.set(countKey, 1);
+          client.expire(countKey, 60);
         } else {
-          // if key is not empty, then check what it's value is
           if (parseInt(reply) < 5) {
-            // if less than five, increment value
-            client.incr(countKey, (err, count) => {
+            client.incr(countKey, (err, reply) => {
               if (err) throw err;
             });
             return next();
-          } else if (parseInt(reply) === 5) {
+          } else if (parseInt(reply) >= 5) {
             res.statusCode = 429;
             return res.json({
               errors: [
@@ -39,7 +40,6 @@ module.exports = {
             });
           }
         }
-        if (err) throw err;
       });
     };
   }
