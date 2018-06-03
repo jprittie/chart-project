@@ -1,6 +1,9 @@
 version: '2'
 
 services:
+  redis:
+    image: redis
+
   db:
     image: postgres:9.6
     environment:
@@ -12,6 +15,9 @@ services:
 
   app:
     build: .
+    depends_on:
+      - db
+      - redis
     ports:
       - '5555:5555'
     volumes:
@@ -22,4 +28,7 @@ services:
     environment:
       DATABASE_URL: process.env.PGHOST
       NODE_ENV: development
+      REDIS_HOST: redis://redis:6379
+    links:
+      - 'redis'
     command: npm run dev

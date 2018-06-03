@@ -6,3 +6,6 @@ WORKDIR /usr/src/app
 
 COPY package.json /usr/src/app/
 RUN npm install --silent
+
+# Expose port
+EXPOSE  5555

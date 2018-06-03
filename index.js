@@ -4,7 +4,22 @@ const pg = require('pg');
 const app = express();
 // configs come from standard PostgreSQL env vars
 // https://www.postgresql.org/docs/9.6/static/libpq-envars.html
+
 const pool = new pg.Pool();
+
+const redis = require('redis');
+// const client = redis.createClient();
+const client = redis.createClient('redis://redis:6379');
+const mw = require('./rate-limit.js');
+
+// test redis connection
+client.on('connect', function () {
+  console.log('connected');
+});
+
+client.on('error', function (err) {
+  console.log('Error ' + err);
+});
 
 const queryHandler = (req, res, next) => {
   pool.query(req.sqlQuery).then((r) => {
@@ -16,7 +31,13 @@ app.get('/', (req, res) => {
   res.send('Welcome to EQ Works 😎');
 });
 
-app.get('/events/hourly', (req, res, next) => {
+app.get('/events/hourly', mw.rateLimit(client), (req, res, next) => {
+  // let ip = req.headers['x-forwarded-for'] ||
+  //       req.connection.remoteAddress ||
+  //       req.socket.remoteAddress ||
+  //       req.connection.socket.remoteAddress;
+  // console.log(req.path, ip);
+  // console.log(req.ip);
   req.sqlQuery = `
     SELECT date, hour, events, poi_id
     FROM public.hourly_events
