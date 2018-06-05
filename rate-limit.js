@@ -4,7 +4,8 @@
   * Then we create a countKey, which combines the IP and the path
   * We check whether the key exists in Redis; if it doesn't, we set it with a minute expiry
   * If the key does exist, and its value is less than five, we increment value and return next()
-  * If the five hits per minute limit has been reached, we send a message saying the limit was hit
+  * If the five hits per minute limit has been reached, we send a message with status code 429
+  * saying the limit was hit
 */
 
 module.exports = {
